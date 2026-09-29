@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apartmani Sunce – smeštaj za odmor</title>
+<meta name="description" content="Dva udobna apartmana za odmor. Rezervacija preko Bookinga ili direktno – najbolja cena.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="nav">
+  <a href="#" class="logo">Apartmani Sunce</a>
+  <nav>
+    <a href="#apartmani">Apartmani</a>
+    <a href="#galerija">Galerija</a>
+    <a href="#lokacija">Lokacija</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>Vaš odmor počinje ovde</h1>
+    <p>Dva udobna apartmana, potpuno opremljena, u mirnom delu grada.</p>
+    <a class="btn" href="#apartmani">Pogledaj apartmane</a>
+  </div>
+</section>
+
+<section id="apartmani" class="wrap">
+  <h2>Naši apartmani</h2>
+  <div class="cards">
+    <article class="card">
+      <div class="ph">Fotografija apartmana 1</div>
+      <div class="body">
+        <h3>Apartman 1</h3>
+        <p class="meta">Do 4 osobe · 40 m² · 1 spavaća soba</p>
+        <ul>
+          <li>Klima uređaj i Wi-Fi</li>
+          <li>Potpuno opremljena kuhinja</li>
+          <li>Terasa</li>
+          <li>Besplatan parking</li>
+        </ul>
+        <p class="price">od <strong>45 €</strong> / noć</p>
+        <a class="btn" href="https://www.booking.com/" target="_blank" rel="noopener">Rezerviši na Bookingu</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="ph">Fotografija apartmana 2</div>
+      <div class="body">
+        <h3>Apartman 2</h3>
+        <p class="meta">Do 2 osobe · 28 m² · studio</p>
+        <ul>
+          <li>Klima uređaj i Wi-Fi</li>
+          <li>Kuhinja sa trpezarijom</li>
+          <li>Smart TV</li>
+          <li>Besplatan parking</li>
+        </ul>
+        <p class="price">od <strong>35 €</strong> / noć</p>
+        <a class="btn" href="https://www.booking.com/" target="_blank" rel="noopener">Rezerviši na Bookingu</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="why">
+  <div class="wrap">
+    <h2>Zašto kod nas</h2>
+    <div class="grid3">
+      <div><h3>Čisto i uredno</h3><p>Svaki apartman se detaljno priprema pre vašeg dolaska.</p></div>
+      <div><h3>Fleksibilan dolazak</h3><p>Samostalna prijava (self check-in) u dogovoru sa domaćinom.</p></div>
+      <div><h3>Direktna rezervacija</h3><p>Javite nam se direktno za najbolju cenu i duži boravak.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="galerija" class="wrap">
+  <h2>Galerija</h2>
+  <div class="gallery">
+    <div class="ph">Foto 1</div><div class="ph">Foto 2</div><div class="ph">Foto 3</div>
+    <div class="ph">Foto 4</div><div class="ph">Foto 5</div><div class="ph">Foto 6</div>
+  </div>
+</section>
+
+<section id="lokacija" class="wrap">
+  <h2>Lokacija</h2>
+  <p>Ulica i broj, Grad – 5 min do centra, 10 min do plaže/žičare/stanice.</p>
+  <iframe title="Mapa" loading="lazy" src="https://www.google.com/maps?q=Beograd&output=embed"></iframe>
+</section>
+
+<section id="kontakt" class="wrap contact">
+  <h2>Kontakt i upit</h2>
+  <div class="cols">
+    <div>
+      <p>Telefon / Viber / WhatsApp: <a href="tel:+381600000000">+381 60 000 0000</a></p>
+      <p>Email: <a href="mailto:info@example.com">info@example.com</a></p>
+      <p>Check-in od 14h · Check-out do 11h</p>
+    </div>
+    <form id="upit">
+      <input name="ime" placeholder="Ime i prezime" required>
+      <input name="datum" placeholder="Datumi boravka (npr. 10.–17. jul)" required>
+      <select name="apartman"><option>Apartman 1</option><option>Apartman 2</option><option>Oba apartmana</option></select>
+      <textarea name="poruka" rows="3" placeholder="Poruka"></textarea>
+      <button class="btn" type="submit">Pošalji upit</button>
+    </form>
+  </div>
+</section>
+
+<footer>© <span id="god"></span> Apartmani Sunce</footer>
+<script src="script.js"></script>
+</body>
+</html>
