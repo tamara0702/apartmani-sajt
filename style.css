@@ -41,3 +41,6 @@ blockquote cite{display:block;margin-top:8px;font-size:.85rem;color:#667}
 .logo{display:inline-flex;align-items:center;gap:8px}
 .hero-cherry .cherry{width:84px;height:84px;filter:drop-shadow(0 4px 8px #0004)}
 .cherry.small{width:22px;height:22px;margin-right:4px}
+.callbox .btn{margin-top:8px}
+.nav nav{display:flex;gap:16px;flex-wrap:wrap}
+.nav nav a{margin-left:0}
