@@ -101,3 +101,7 @@ footer a{color:var(--honey)}
 @media(max-width:480px){.story-grid{grid-template-columns:1fr}}
 .story{display:flex;flex-direction:column}
 .story-title{flex:1;display:flex;align-items:center;justify-content:center}
+
+.about-era{font-size:1.3rem;font-weight:700;color:var(--gold);margin:0 0 .6em}
+.about-text p{max-width:42em}
+.about-grid:not(:has(.about-img)) .about-text{max-width:44em}
