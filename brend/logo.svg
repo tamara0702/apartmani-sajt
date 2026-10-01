@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="800" height="800">
+<defs>
+<path id="topa" d="M 52 200 A 148 148 0 0 1 348 200"/>
+<path id="bota" d="M 40 200 A 160 160 0 0 0 360 200"/>
+<clipPath id="ina"><circle cx="200" cy="200" r="112"/></clipPath>
+</defs>
+<circle cx="200" cy="200" r="196" fill="#3e2412"/>
+<circle cx="200" cy="200" r="186" fill="none" stroke="#e6a41c" stroke-width="3"/>
+<circle cx="200" cy="200" r="128" fill="#e6a41c"/>
+<circle cx="200" cy="200" r="122" fill="#fbf1d6"/>
+<g clip-path="url(#ina)"><polygon points="227.7,216.0 200.0,232.0 172.3,216.0 172.3,184.0 200.0,168.0 227.7,184.0" fill="#e6a41c" fill-opacity="0.35" stroke="#c97d0a" stroke-width="2"/><polygon points="286.6,216.0 258.9,232.0 231.2,216.0 231.2,184.0 258.9,168.0 286.6,184.0" fill="#e6a41c" fill-opacity="0.35" stroke="#c97d0a" stroke-width="2"/><polygon points="168.8,216.0 141.1,232.0 113.4,216.0 113.4,184.0 141.1,168.0 168.8,184.0" fill="#e6a41c" fill-opacity="0.35" stroke="#c97d0a" stroke-width="2"/><polygon points="257.2,267.0 229.4,283.0 201.7,267.0 201.7,235.0 229.4,219.0 257.2,235.0" fill="#e6a41c" fill-opacity="0.35" stroke="#c97d0a" stroke-width="2"/><polygon points="198.3,267.0 170.6,283.0 142.8,267.0 142.8,235.0 170.6,219.0 198.3,235.0" fill="#e6a41c" fill-opacity="0.35" stroke="#c97d0a" stroke-width="2"/><polygon points="257.2,165.0 229.4,181.0 201.7,165.0 201.7,133.0 229.4,117.0 257.2,133.0" fill="#e6a41c" fill-opacity="0.35" stroke="#c97d0a" stroke-width="2"/><polygon points="198.3,165.0 170.6,181.0 142.8,165.0 142.8,133.0 170.6,117.0 198.3,133.0" fill="#e6a41c" fill-opacity="0.35" stroke="#c97d0a" stroke-width="2"/><polygon points="316.0,267.0 288.3,283.0 260.6,267.0 260.6,235.0 288.3,219.0 316.0,235.0" fill="#e6a41c" fill-opacity="0.35" stroke="#c97d0a" stroke-width="2"/><polygon points="139.4,267.0 111.7,283.0 84.0,267.0 84.0,235.0 111.7,219.0 139.4,235.0" fill="#e6a41c" fill-opacity="0.35" stroke="#c97d0a" stroke-width="2"/><polygon points="316.0,165.0 288.3,181.0 260.6,165.0 260.6,133.0 288.3,117.0 316.0,133.0" fill="#e6a41c" fill-opacity="0.35" stroke="#c97d0a" stroke-width="2"/><polygon points="139.4,165.0 111.7,181.0 84.0,165.0 84.0,133.0 111.7,117.0 139.4,133.0" fill="#e6a41c" fill-opacity="0.35" stroke="#c97d0a" stroke-width="2"/></g>
+
+<g transform="translate(205,208) rotate(-20) scale(1.35)">
+  <ellipse cx="-14" cy="-34" rx="26" ry="15" fill="#fff" stroke="#3e2412" stroke-width="3" transform="rotate(-25 -14 -34)"/>
+  <ellipse cx="18" cy="-36" rx="26" ry="15" fill="#fff" stroke="#3e2412" stroke-width="3" transform="rotate(25 18 -36)"/>
+  <ellipse cx="0" cy="0" rx="42" ry="30" fill="#e6a41c" stroke="#3e2412" stroke-width="4"/>
+  <clipPath id="bc"><ellipse cx="0" cy="0" rx="42" ry="30"/></clipPath>
+  <g clip-path="url(#bc)" fill="#3e2412"><rect x="-18" y="-32" width="11" height="64"/><rect x="2" y="-32" width="11" height="64"/><rect x="21" y="-32" width="11" height="64"/></g>
+  <ellipse cx="0" cy="0" rx="42" ry="30" fill="none" stroke="#3e2412" stroke-width="4"/>
+  <circle cx="-50" cy="-2" r="17" fill="#3e2412"/>
+  <circle cx="-56" cy="-7" r="3.5" fill="#fbf1d6"/>
+  <path d="M-58 5 Q-52 11 -45 5" stroke="#fbf1d6" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M-58 -17 Q-66 -34 -76 -32 M-50 -19 Q-52 -38 -62 -42" stroke="#3e2412" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M42 0 L58 0" stroke="#3e2412" stroke-width="5" stroke-linecap="round"/>
+</g>
+<text font-family="Georgia,'Times New Roman',serif" font-weight="700" font-size="44" letter-spacing="5" fill="#fbf1d6" text-anchor="middle"><textPath href="#topa" startOffset="50%">DEDIN MED</textPath></text>
+<text font-family="Georgia,'Times New Roman',serif" font-weight="700" font-size="26" letter-spacing="11" fill="#e6a41c" text-anchor="middle"><textPath href="#bota" startOffset="50%">ORGANIC</textPath></text>
+<g fill="#e6a41c"><circle cx="46" cy="214" r="5"/><circle cx="354" cy="214" r="5"/></g></svg>
