@@ -69,7 +69,11 @@ def label(theme,kind,sub,net,W,H,name,big=True):
     out+='</g></svg>'
     return out
 
-for th in THEMES:
-    open(f"emblem-{th}.svg","w").write(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 420 420" width="600" height="600"><rect x="-10" y="-10" width="420" height="420" fill="{THEMES[th]["bg"]}"/>{emblem(THEMES[th],"e")}</svg>')
-    open(f"etiketa-900ml-{th}.svg","w").write(label(th,"Livadski","sa cvetnih livada","1200 g",950,1250,"a"))
-    open(f"etiketa-390ml-sestougaona-{th}.svg","w").write(label(th,"Livadski","sa cvetnih livada","500 g",700,900,"b"))
+def main():
+    for th in THEMES:
+        open(f"emblem-{th}.svg","w").write(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 420 420" width="600" height="600"><rect x="-10" y="-10" width="420" height="420" fill="{THEMES[th]["bg"]}"/>{emblem(THEMES[th],"e")}</svg>')
+        open(f"etiketa-900ml-{th}.svg","w").write(label(th,"Livadski","sa cvetnih livada","1200 g",950,1250,"a"))
+        open(f"etiketa-390ml-sestougaona-{th}.svg","w").write(label(th,"Livadski","sa cvetnih livada","500 g",700,900,"b"))
+
+if __name__=='__main__':
+    main()

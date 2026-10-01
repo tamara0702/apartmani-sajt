@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dedin med organic – pravi domaći med</title>
+<meta name="description" content="Dedin med organic – livadski, bagremov i lipov med u tegli od 900 ml i 390 ml. Poručite online, plaćanje pouzećem.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#"><img src="img/emblem.svg" alt="" width="40" height="40"><span>Dedin med <em>organic</em></span></a>
+  <nav>
+    <a href="#med">Med</a>
+    <a href="#o-nama">O nama</a>
+    <a href="#porudzbina">Poruči</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero">
+  <div class="hero-text">
+    <p class="kicker">pravi domaći med</p>
+    <h1>Dedin med <span>organic</span></h1>
+    <p class="lead">Livadski, bagremov i lipov med u staklenim teglama. Poručite online, a plaćate pouzećem kad vam stigne.</p>
+    <a class="btn" href="#med">Pogledaj med</a>
+    <a class="btn ghost" href="#porudzbina">Poruči odmah</a>
+  </div>
+  <img class="hero-emblem" src="img/emblem.svg" alt="Dedin med organic – logo" width="420" height="420">
+</section>
+
+<section id="med" class="section">
+  <h2>Naš med</h2>
+  <p class="sub">Izaberite vrstu meda i veličinu tegle.</p>
+  <div id="products" class="grid"></div>
+</section>
+
+<section id="o-nama" class="section about">
+  <h2>O nama</h2>
+  <p>Dedin med organic je mala porodična proizvodnja meda. Med punimo u staklene tegle, bez dodataka. Svaka tegla ima našu etiketu sa pčelom.</p>
+  <p class="todo">[Ovde dodajte kratku priču: ko ste, gde su pčelinjaci, od kada se bavite pčelarstvom.]</p>
+</section>
+
+<section id="porudzbina" class="section order">
+  <h2>Porudžbina</h2>
+  <p class="sub">Izaberite količine iznad, popunite podatke i pošaljite porudžbinu. Mi vas kontaktiramo da potvrdimo isporuku.</p>
+  <div class="order-wrap">
+    <div class="cart">
+      <h3>Vaša korpa</h3>
+      <ul id="cart-list"><li class="empty">Korpa je prazna. Izaberite med iznad.</li></ul>
+      <div class="total"><span>Ukupno</span><strong id="cart-total">0 RSD</strong></div>
+      <p class="note">Dostava se dogovara pri potvrdi porudžbine. Plaćanje pouzećem.</p>
+    </div>
+    <form id="order-form" novalidate>
+      <label>Ime i prezime<input name="ime" required autocomplete="name"></label>
+      <label>Telefon<input name="telefon" type="tel" required autocomplete="tel"></label>
+      <label>Adresa<input name="adresa" required autocomplete="street-address"></label>
+      <label>Mesto i poštanski broj<input name="mesto" required autocomplete="address-level2"></label>
+      <label>Napomena (nije obavezno)<textarea name="napomena" rows="3"></textarea></label>
+      <button class="btn" type="submit">Pošalji porudžbinu</button>
+      <p id="form-error" class="error" role="alert"></p>
+    </form>
+  </div>
+  <div id="send-box" class="send-box" hidden>
+    <h3>Još samo jedan korak</h3>
+    <p>Porudžbina je pripremljena. Izaberite kako da nam je pošaljete:</p>
+    <div class="send-btns">
+      <a id="send-viber" class="btn" target="_blank" rel="noopener">Viber</a>
+      <a id="send-wa" class="btn" target="_blank" rel="noopener">WhatsApp</a>
+      <a id="send-sms" class="btn ghost">SMS</a>
+    </div>
+    <details><summary>Tekst porudžbine</summary><pre id="send-text"></pre></details>
+  </div>
+</section>
+</main>
+
+<footer id="kontakt">
+  <img src="img/emblem.svg" alt="" width="72" height="72">
+  <div>
+    <strong>Dedin med organic</strong>
+    <p>Telefon: <a href="tel:+38162755336">062 755 336</a></p>
+    <p>Instagram: <a href="https://instagram.com/dedin.med.organic" target="_blank" rel="noopener">@dedin.med.organic</a></p>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
