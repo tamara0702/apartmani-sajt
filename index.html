@@ -8,8 +8,12 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="bar">
+  <span>Telefon: <a href="tel:+38162755336">062 755 336</a></span>
+  <span>Instagram: <a href="https://instagram.com/dedin.med.organic" target="_blank" rel="noopener">@dedin.med.organic</a></span>
+</div>
 <header class="top">
-  <a class="brand" href="#"><img src="img/emblem.svg" alt="" width="40" height="40"><span>Dedin med <em>organic</em></span></a>
+  <a class="brand" href="#"><img src="img/emblem.svg" alt="" width="64" height="64"><span>Dedin med <em>organic</em></span></a>
   <nav>
     <a href="#med">Med</a>
     <a href="#o-nama">O nama</a>
@@ -20,14 +24,35 @@
 
 <main>
 <section class="hero">
-  <div class="hero-text">
-    <p class="kicker">pravi domaći med</p>
+  <div class="hero-inner">
+    <img class="hero-emblem" src="img/emblem.svg" alt="Dedin med organic – logo" width="300" height="300">
     <h1>Dedin med <span>organic</span></h1>
-    <p class="lead">Livadski, bagremov i lipov med u staklenim teglama. Poručite online, a plaćate pouzećem kad vam stigne.</p>
-    <a class="btn" href="#med">Pogledaj med</a>
-    <a class="btn ghost" href="#porudzbina">Poruči odmah</a>
+    <p class="kicker">pravi domaći med</p>
+    <p class="lead">Livadski, bagremov i lipov med u staklenim teglama.</p>
+    <a class="btn gold" href="#med">Pogledaj med</a>
+    <a class="btn ghost light" href="#porudzbina">Poruči odmah</a>
   </div>
-  <img class="hero-emblem" src="img/emblem.svg" alt="Dedin med organic – logo" width="420" height="420">
+</section>
+
+<section class="features">
+  <h2 class="center">Od pčelinjaka do vašeg doma</h2>
+  <div class="feat-grid">
+    <div class="feat">
+      <svg viewBox="0 0 120 120" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><path d="M22 52 L60 22 L98 52 Z"/><rect x="28" y="52" width="64" height="18"/><rect x="28" y="70" width="64" height="18"/><rect x="28" y="88" width="64" height="18"/><path d="M52 60 h16 M52 79 h16"/></g></svg>
+      <h3>Izaberite svoj med</h3>
+      <p>Livadski, bagremov ili lipov. Izaberite vrstu meda koja vam prija, za doručak, čaj ili poklon.</p>
+    </div>
+    <div class="feat">
+      <svg viewBox="0 0 120 120" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"><polygon points="42,30 58,30 66,44 58,58 42,58 34,44"/><polygon points="66,44 82,44 90,58 82,72 66,72 58,58"/><polygon points="34,44 50,44 58,58 50,72 34,72 26,58"/><polygon points="42,58 58,58 66,72 58,86 42,86 34,72"/></g></svg>
+      <h3>Dve veličine tegle</h3>
+      <p>Klasična tegla od 900 ml za porodicu i šestougaona od 390 ml, idealna za poklon.</p>
+    </div>
+    <div class="feat">
+      <svg viewBox="0 0 120 120" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><path d="M34 54 Q30 62 30 76 Q30 100 60 100 Q90 100 90 76 Q90 62 86 54 Z"/><rect x="40" y="46" width="40" height="8" rx="3"/><path d="M48 76 h24"/><path d="M62 14 L84 40"/><circle cx="58" cy="38" r="9"/></g></svg>
+      <h3>Do vaših vrata</h3>
+      <p>Popunite porudžbinu, mi vas kontaktiramo da potvrdimo isporuku, a plaćate pouzećem.</p>
+    </div>
+  </div>
 </section>
 
 <section id="med" class="section">
@@ -38,8 +63,13 @@
 
 <section id="o-nama" class="section about">
   <h2>O nama</h2>
-  <p>Dedin med organic je mala porodična proizvodnja meda. Med punimo u staklene tegle, bez dodataka. Svaka tegla ima našu etiketu sa pčelom.</p>
-  <p class="todo">[Ovde dodajte kratku priču: ko ste, gde su pčelinjaci, od kada se bavite pčelarstvom.]</p>
+  <div class="about-grid">
+    <img class="about-img" src="img/o-nama.jpg" alt="Dedin med organic" onerror="this.remove()">
+    <div>
+      <p>Dedin med organic je mala porodična proizvodnja meda. Med punimo u staklene tegle, bez dodataka. Svaka tegla ima našu etiketu sa pčelom.</p>
+      <p class="todo">[Ovde dodajte kratku priču: ko ste, gde su pčelinjaci, od kada se bavite pčelarstvom.]</p>
+    </div>
+  </div>
 </section>
 
 <section id="porudzbina" class="section order">
