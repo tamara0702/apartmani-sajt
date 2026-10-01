@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 420 420" width="600" height="600"><rect x="-10" y="-10" width="420" height="420" fill="#fbf6e9"/><defs><path id="te" d="M 50 200 A 150 150 0 0 1 350 200"/><path id="be" d="M 36 200 A 164 164 0 0 0 364 200"/></defs>
+<circle cx="200" cy="200" r="196" fill="none" stroke="#3e2412" stroke-width="5"/>
+<circle cx="200" cy="200" r="184" fill="none" stroke="#b98417" stroke-width="2"/>
+<circle cx="200" cy="200" r="122" fill="none" stroke="#b98417" stroke-width="2"/>
+<text font-family="Georgia,serif" font-weight="700" font-size="46" letter-spacing="6" fill="#3e2412" text-anchor="middle"><textPath href="#te" startOffset="50%">DEDIN MED</textPath></text>
+<text font-family="Georgia,serif" font-weight="700" font-size="27" letter-spacing="12" fill="#b98417" text-anchor="middle"><textPath href="#be" startOffset="50%">ORGANIC</textPath></text>
+<polygon points="55.8,218.5 48.0,223.0 40.2,218.5 40.2,209.5 48.0,205.0 55.8,209.5" fill="#b98417"/><polygon points="359.8,218.5 352.0,223.0 344.2,218.5 344.2,209.5 352.0,205.0 359.8,209.5" fill="#b98417"/>
+<g transform="translate(205,200)"><g transform="scale(1.55) rotate(-12)" fill="none" stroke="#b98417" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+<ellipse cx="-8" cy="-38" rx="26" ry="14" transform="rotate(-28 -8 -38)"/>
+<ellipse cx="22" cy="-36" rx="26" ry="14" transform="rotate(22 22 -36)"/>
+<ellipse cx="0" cy="0" rx="40" ry="28"/>
+<path d="M-12 -26.7 Q-19 0 -12 26.7 M10 -27.1 Q3 0 10 27.1 M28 -20 Q22 0 28 20"/>
+<circle cx="-54" cy="0" r="14"/>
+<path d="M-62 -12 Q-68 -30 -80 -30 M-52 -14 Q-52 -34 -64 -40"/>
+<path d="M40 0 L56 0"/>
+<circle cx="-58" cy="-3" r="2" fill="#b98417" stroke="none"/>
+</g></g></svg>
