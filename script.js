@@ -73,3 +73,34 @@ document.getElementById("order-form").addEventListener("submit", e => {
   box.hidden = false;
   box.scrollIntoView({ behavior: "smooth", block: "center" });
 });
+
+
+// ====== Naša priča: kartice + prozor ======
+const sgrid = document.getElementById("story-grid");
+sgrid.innerHTML = STORIES.map(s => `
+  <button class="story" type="button" data-id="${s.id}">
+    <span class="story-media">
+      <svg viewBox="0 0 120 120" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">${ICONS[s.id]}</svg>
+      <img src="img/price/${s.id}-1.jpg" alt="" loading="lazy" onerror="this.remove()">
+    </span>
+    <span class="story-title">${s.title}</span>
+  </button>`).join("");
+
+const modal = document.getElementById("story-modal");
+sgrid.addEventListener("click", e => {
+  const b = e.target.closest(".story");
+  if (!b) return;
+  const s = STORIES.find(x => x.id === b.dataset.id);
+  document.getElementById("story-title").textContent = s.title;
+  document.getElementById("story-text").innerHTML = s.text.map(t => t.startsWith("[") ? `<p class="todo">${t}</p>` : `<p>${t}</p>`).join("");
+  const box = document.getElementById("story-imgs");
+  box.innerHTML = "";
+  [1, 2, 3].forEach(i => {
+    const im = new Image();
+    im.alt = s.title;
+    im.onload = () => box.append(im);
+    im.src = `img/price/${s.id}-${i}.jpg`;
+  });
+  modal.showModal();
+});
+modal.addEventListener("click", e => { if (e.target === modal || e.target.closest(".modal-x")) modal.close(); });
