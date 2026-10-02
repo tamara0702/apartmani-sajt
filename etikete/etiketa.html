@@ -137,7 +137,7 @@ if(style==='A'){
  s+=sprig(-2,5,60,10,1)+sprig(102,3,58,170,1)+sprig(38,-2,30,70,-1);
  for(const [x,y,n] of [[6,8,9],[14,9,11],[22,11,8],[31,13,10],[40,10,6],[60,10,7],[68,13,10],[77,11,8],[86,9,11],[94,8,9],[50,8,5]]) s+=raceme(x,y,short?Math.min(n,5):n,1);
  s+='</g></svg>';
- if(short){ html=`<div class="page F">${s}<div class="bar"></div><div class="safe" style="top:calc(var(--bleed) + var(--u)*${tall?26:24});bottom:calc(var(--bleed) + var(--u)*9)">
+ if(short){ html=`<div class="page F"><div class="bar"></div><div class="safe" style="top:calc(var(--bleed) + var(--u)*2);bottom:calc(var(--bleed) + var(--u)*5)">
   ${logo}
   <div class="title">Bagremov<em>med</em></div>
   <div class="neto">${dims.neto}</div>

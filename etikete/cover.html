@@ -1,0 +1,45 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@import url('fonts/g.css');
+*{margin:0;padding:0}
+html,body{width:206mm;height:206mm;overflow:hidden;background:#FBF3DF}
+svg{display:block;width:206mm;height:206mm}
+</style></head><body><div id="r"></div>
+<script>
+const S=206; // 200 mm + 3 mm viska sa svake strane
+let seed=7; const rnd=()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646};
+const G1='#6a8a1f',G2='#7fa02a';
+function raceme(n,len){
+ // gust viseci grozd: cvetovi blizu jedan drugom, sve manji ka vrhu
+ let o=`<path d="M0 0 q 1.2 ${n*1.6} -0.8 ${n*3.2}" stroke="${G1}" stroke-width="0.5" fill="none"/>`;
+ for(let i=0;i<n;i++){
+  const t=i/n, sc=1-t*0.45, py=i*3.1+1.5, side=i%2?1:-1, px=side*(1.7*sc);
+  o+=`<ellipse cx="${px}" cy="${py+2}" rx="${2*sc}" ry="${2.8*sc}" fill="#FFFBEA" stroke="#d6bf72" stroke-width="0.3"/>`;
+  o+=`<ellipse cx="${px+side*0.2}" cy="${py+2.8}" rx="${0.6*sc}" ry="${0.7*sc}" fill="#f0d27a"/>`;
+ }
+ return o;
+}
+function branch(){
+ const P=(t)=>[2*(1-t)*t*22+t*t*44, 2*(1-t)*t*-6+t*t*2];
+ let o=`<path d="M0 0 Q 22 -6 44 2" stroke="#5a7a18" stroke-width="0.8" fill="none" stroke-linecap="round"/>`;
+ for(let i=1;i<=9;i++){const [x,y]=P(i/10);
+  o+=`<ellipse transform="translate(${x} ${y}) rotate(${-55-i*2})" cx="3.2" cy="0" rx="3.4" ry="1.4" fill="${i%2?G2:G1}"/>`;
+  if(i%2) o+=`<ellipse transform="translate(${x} ${y}) rotate(${50})" cx="3" cy="0" rx="3" ry="1.2" fill="${G1}"/>`;}
+ const ns=[[0.3,6],[0.52,7],[0.76,5]];
+ for(const [t,n] of ns){const [x,y]=P(t); o+=`<g transform="translate(${x} ${y+0.5}) rotate(${(t-.5)*-14})">${raceme(n)}</g>`;}
+ return o;
+}
+let g='';
+const cw=54, ch=40;
+let row=0;
+for(let y=-10;y<S+ch;y+=ch,row++)for(let x=-50+(row%2?cw/2:0);x<S+cw;x+=cw){
+ const cx=x+22, cy=y+14; if(Math.hypot(cx-S/2,cy-S/2)<40) continue;
+ const flip=(row%2)?-1:1;
+ g+=`<g transform="translate(${flip<0?x+44:x} ${y}) scale(${flip} 1) rotate(${row%3*3-3})">${branch()}</g>`;
+}
+const R=26;
+document.getElementById('r').innerHTML=`<svg viewBox="0 0 ${S} ${S}">
+<rect width="${S}" height="${S}" fill="#FBF3DF"/>${g}
+<circle cx="${S/2}" cy="${S/2}" r="${R+3}" fill="#FBF3DF"/>
+<image href="logo.png" x="${S/2-R}" y="${S/2-R}" width="${2*R}" height="${2*R}" clip-path="circle(50%)"/>
+</svg>`;
+</script></body></html>
