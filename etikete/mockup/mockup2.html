@@ -1,0 +1,76 @@
+<!doctype html><body style="margin:0"><canvas id="c" width="1200" height="1600"></canvas>
+<script>
+const load=s=>new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.src=s});
+let seed=11;const rnd=()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646};
+(async()=>{
+ const photo=await load('tegla.jpg'), lab=await load('../etiketa-500ml-front.png'), pap=await load('../papir-za-poklopac.png');
+ const c=document.getElementById('c'),x=c.getContext('2d'); x.drawImage(photo,0,0,1200,1600);
+ /* ---- etiketa, umanjena na 85% ---- */
+ const cx=595,r=325,ppm=2*r/83.8,k=0.85;
+ const bleed=3*300/25.4, W=lab.width-2*bleed, H=lab.height-2*bleed;
+ const arc=85*k*ppm, h=116*k*ppm, top=575;
+ for(let dx=-Math.floor(r*0.99);dx<r*0.99;dx++){
+  const t0=Math.asin(dx/r),t1=Math.asin((dx+1)/r),u0=(t0*r+arc/2)/arc,u1=(t1*r+arc/2)/arc;
+  if(u0<0||u1>1)continue;
+  x.drawImage(lab,bleed+u0*W,bleed,Math.max((u1-u0)*W,.5),H,cx+dx,top,1,h);
+  x.fillStyle=`rgba(60,35,10,${Math.min((1-Math.cos(t0))*.9,.55)})`;x.fillRect(cx+dx,top,1,h);
+ }
+ const g=x.createLinearGradient(cx+95,0,cx+175,0);
+ g.addColorStop(0,'rgba(255,255,255,0)');g.addColorStop(.5,'rgba(255,255,255,.14)');g.addColorStop(1,'rgba(255,255,255,0)');
+ x.fillStyle=g;x.fillRect(cx+95,top,80,h);
+
+ /* ---- papir preko poklopca ---- */
+ const S=0.5; // 300 dpi papir -> razmera slike
+ const tw=438;  // visina uzice
+ function pat(sx,sy,w,h,dx,dy){x.drawImage(pap,sx,sy,w/S,h/S,dx,dy,w,h);}
+ // suknja (nabori)
+ const N=12, xl=262, xr=930, bx0=240, bx1=955, pts=[];
+ for(let i=0;i<=N;i++){
+  const t=i/N, tipx=bx0+(bx1-bx0)*t;
+  pts.push({tx:xl+(xr-xl)*t, bx:tipx, by:tw+84+ (i%2?0:30)+rnd()*10, notch:i%2});
+ }
+ x.save();
+ x.shadowColor='rgba(40,25,5,.45)';x.shadowBlur=18;x.shadowOffsetY=8;
+ x.beginPath();x.moveTo(xl,tw-4);for(const p of pts)x.lineTo(p.bx,p.by);x.lineTo(xr,tw-4);x.closePath();x.fillStyle='#e9dcc0';x.fill();
+ x.restore();
+ x.save();x.beginPath();x.moveTo(xl,tw-4);for(const p of pts)x.lineTo(p.bx,p.by);x.lineTo(xr,tw-4);x.closePath();x.clip();
+ pat(300,1750,760,200,230,tw-20);
+ // senke nabora: svaki drugi trougao taman, drugi svetao
+ for(let i=0;i<N;i++){const a=pts[i],b=pts[i+1];
+  x.beginPath();x.moveTo(a.tx,tw-4);x.lineTo(a.bx,a.by);x.lineTo(b.bx,b.by);x.lineTo(b.tx,tw-4);x.closePath();
+  const gr=x.createLinearGradient(a.bx,0,b.bx,0);
+  if(i%2){gr.addColorStop(0,'rgba(60,40,10,.30)');gr.addColorStop(1,'rgba(60,40,10,.02)');}
+  else{gr.addColorStop(0,'rgba(255,250,230,.0)');gr.addColorStop(1,'rgba(60,40,10,.22)');}
+  x.fillStyle=gr;x.fill();
+  x.strokeStyle='rgba(70,45,10,.35)';x.lineWidth=1.2;x.stroke();
+ }
+ // bocno zatamnjenje cele suknje
+ const sg=x.createLinearGradient(xl-40,0,xr+40,0);
+ sg.addColorStop(0,'rgba(50,30,5,.38)');sg.addColorStop(.25,'rgba(50,30,5,0)');sg.addColorStop(.75,'rgba(50,30,5,0)');sg.addColorStop(1,'rgba(50,30,5,.38)');
+ x.fillStyle=sg;x.fillRect(200,tw-10,800,200);
+ x.restore();
+ // kupola (poklopac)
+ const dome=()=>{x.beginPath();x.moveTo(xl-8,tw+4);x.bezierCurveTo(240,300,380,240,600,240);x.bezierCurveTo(820,240,965,300,xr+8,tw+4);x.closePath();};
+ x.save();x.shadowColor='rgba(40,25,5,.4)';x.shadowBlur=14;x.shadowOffsetY=4;dome();x.fillStyle='#e9dcc0';x.fill();x.restore();
+ x.save();dome();x.clip();
+ pat(60,160,760,260,240,235);
+ const dg=x.createLinearGradient(xl-20,0,xr+20,0);
+ dg.addColorStop(0,'rgba(50,30,5,.42)');dg.addColorStop(.28,'rgba(50,30,5,0)');dg.addColorStop(.55,'rgba(255,255,255,.12)');dg.addColorStop(.75,'rgba(50,30,5,0)');dg.addColorStop(1,'rgba(50,30,5,.4)');
+ x.fillStyle=dg;x.fillRect(230,230,760,230);
+ const vg=x.createLinearGradient(0,250,0,tw);vg.addColorStop(0,'rgba(255,255,255,.12)');vg.addColorStop(1,'rgba(50,30,5,.25)');
+ x.fillStyle=vg;x.fillRect(230,230,760,230);
+ // nabori na kupoli
+ x.strokeStyle='rgba(70,45,10,.25)';x.lineWidth=1.5;
+ for(let i=1;i<9;i++){const t=i/9;x.beginPath();x.moveTo(xl+(xr-xl)*t,tw);x.quadraticCurveTo(cx+(t-.5)*260,320,cx+(t-.5)*120+rnd()*30,262);x.stroke();}
+ x.restore();
+ x.save();dome();x.strokeStyle='rgba(70,45,10,.35)';x.lineWidth=1.5;x.stroke();x.restore();
+ // uzica
+ const rope=(y,w,col)=>{x.beginPath();x.moveTo(xl-14,y+6);x.quadraticCurveTo(cx,y+24,xr+14,y+6);x.strokeStyle=col;x.lineWidth=w;x.lineCap='round';x.stroke();};
+ rope(tw,9,'#7a5a2a');rope(tw-1,6,'#c9a468');rope(tw+8,6,'#7a5a2a');rope(tw+7,3.5,'#d6b57a');
+ // cvor i krajevi
+ x.strokeStyle='#c9a468';x.lineWidth=5;x.lineCap='round';
+ for(const [dx,dy,ex,ey] of [[300,26,332,76],[300,26,280,92]]){x.beginPath();x.moveTo(cx+dx-30,tw+22);x.quadraticCurveTo(cx+dx,tw+dy+10,cx+ex,tw+ey);x.stroke();}
+ x.fillStyle='#b08a4a';x.beginPath();x.ellipse(cx+270,tw+22,14,10,0,0,7);x.fill();
+ window.done=true;
+})();
+</script></body>
