@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="sr"><head><meta charset="utf-8">
+<style>
+@import url('fonts/g.css');
+:root{--brown:#3E2412;--gold:#B8851A;--cream:#FCF5E8;}
+*{box-sizing:border-box;margin:0;padding:0;font-variant-numeric:lining-nums}
+html,body{width:var(--W);height:var(--H);overflow:hidden}
+.page{position:relative;width:var(--W);height:var(--H);color:var(--brown);font-family:'Cormorant Garamond',serif;font-weight:600;overflow:hidden}
+.safe{position:absolute;inset:calc(var(--bleed) + var(--u)*5);display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center}
+.logo{border-radius:50%;display:block}
+.title{font-family:'Playfair Display',serif;font-weight:900;line-height:1}
+.info{font-size:calc(var(--u)*3.9);line-height:1.28;font-weight:600}
+.info b{font-weight:700}
+.line{display:inline-block;border-bottom:.25mm solid currentColor;width:calc(var(--u)*22);transform:translateY(.6mm)}
+.hex{display:inline-block;width:calc(var(--u)*3);height:calc(var(--u)*3.4);background:var(--gold);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.rule{display:flex;align-items:center;gap:calc(var(--u)*2);width:70%}
+.rule i{flex:1;height:.3mm;background:var(--gold)}
+.neto{font-family:'Playfair Display',serif;font-weight:700;font-size:calc(var(--u)*6.4)}
+.cert{font-style:italic;letter-spacing:.25em;text-transform:uppercase;font-size:calc(var(--u)*3.4);color:var(--gold);font-weight:600}
+
+/* ---- A: zanatski pecat ---- */
+.A{background:var(--cream)}
+.A .frame{position:absolute;inset:calc(var(--bleed) + var(--u)*2.2);border:.5mm solid var(--brown);border-radius:calc(var(--u)*4)}
+.A .frame2{position:absolute;inset:calc(var(--bleed) + var(--u)*3.4);border:.25mm solid var(--gold);border-radius:calc(var(--u)*3)}
+.A .title{font-size:calc(var(--u)*15)}
+.A .title small{display:block;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:.42em;letter-spacing:.5em;margin-top:.35em;color:var(--gold);padding-left:.5em}
+.A .safe{inset:calc(var(--bleed) + var(--u)*7)}
+
+/* ---- B: minimalizam ---- */
+.B{background:#fff}
+.B .title{font-weight:400;font-size:calc(var(--u)*12.5);letter-spacing:.04em;text-transform:uppercase;line-height:1.05}
+.B .title em{display:block;font-style:normal;font-weight:900;color:var(--gold);font-size:.55em;letter-spacing:.38em;margin-top:.3em;padding-left:.38em}
+.B .info{font-size:calc(var(--u)*3.7)}
+.B .cols{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--u)*3);text-align:left;width:100%;border-top:.3mm solid var(--brown);padding-top:calc(var(--u)*3)}
+.B .cols h6{font-family:'Playfair Display',serif;font-size:.78em;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:.3em;font-weight:700}
+.B .neto{font-weight:400;font-size:calc(var(--u)*9)}
+.B .bar{position:absolute;left:0;right:0;bottom:0;height:calc(var(--bleed) + var(--u)*2.2);background:var(--gold)}
+
+/* ---- C: bagrem ---- */
+.C{background:linear-gradient(180deg,#F9E39A 0%,#F5D370 55%,#EFC456 100%);color:#3a2a10}
+.C .spr{position:absolute;left:0;top:0;width:100%;height:55%;pointer-events:none}
+.C .title{font-size:calc(var(--u)*13);color:#2f3d12}
+.C .title small{display:block;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:.4em;margin-top:.25em;color:#6a4a0c}
+.C .panel{background:rgba(255,251,238,.88);border-radius:calc(var(--u)*3);padding:calc(var(--u)*3.2) calc(var(--u)*3);width:100%}
+.C .logo{box-shadow:0 0 0 calc(var(--u)*1.2) #FCF5E8}
+.C .cert{color:#6a4a0c}
+.C .hex{background:#6a8a1f}
+.C .rule i{background:#6a8a1f}
+</style></head>
+<body>
+<div id="root"></div>
+<script>
+const q=new URLSearchParams(location.search);
+const style=q.get('style')||'A', size=q.get('size')||'1kg';
+const dims={ '1kg':{w:86,h:152.8,neto:'1000 g',lbl:'1 kg'}, '500ml':{w:85,h:116,neto:'700 g',lbl:'500 ml'} }[size];
+const bleed=3, W=dims.w+2*bleed, H=dims.h+2*bleed;
+const r=document.documentElement.style;
+r.setProperty('--W',W+'mm');r.setProperty('--H',H+'mm');r.setProperty('--bleed',bleed+'mm');
+const tall = size==='1kg';
+r.setProperty('--u',(dims.w/100*(tall?1:0.97))+'mm');
+const logoSize = style==='B' ? (tall?'33':'28') : (tall?'42':'34');
+
+const infoBlock = `
+<div class="info">
+ <div>Najbolje upotrebiti do: <span class="line"></span></div>
+ <div>LOT: <span class="line" style="width:calc(var(--u)*30)"></span></div>
+ <div style="margin-top:.5em"><b>Proizvođač:</b> Dedin med organic, [adresa], [mesto], Srbija</div>
+ <div>Tel: 062 755 336 · IG: @dedin.med.organic</div>
+ <div><b>Zemlja porekla:</b> Srbija · Reg. br. [broj]</div>
+ <div style="margin-top:.4em">Čuvati na suvom i tamnom mestu, na sobnoj temperaturi.</div>
+</div>`;
+const logo = `<img class="logo" src="logo.png" style="width:calc(var(--u)*${logoSize});height:calc(var(--u)*${logoSize})">`;
+let html='';
+if(style==='A'){
+ html=`<div class="page A"><div class="frame"></div><div class="frame2"></div><div class="safe">
+  ${logo}
+  <div class="title">Bagremov<small>MED</small></div>
+  <div class="rule"><i></i><span class="hex"></span><i></i></div>
+  <div class="cert">organski proizvod</div>
+  <div class="neto">Neto: ${dims.neto}</div>
+  ${infoBlock}</div></div>`;
+}else if(style==='B'){
+ html=`<div class="page B"><div class="bar"></div><div class="safe" style="bottom:calc(var(--bleed) + var(--u)*7)">
+  ${logo}
+  <div class="title">Bagremov<em>med</em></div>
+  <div class="neto">${dims.neto}</div>
+  <div class="cols">
+   <div><h6>Rok i serija</h6>Najbolje upotrebiti do:<br><span class="line" style="width:90%"></span><br>LOT:<br><span class="line" style="width:90%"></span></div>
+   <div><h6>Proizvođač</h6>Dedin med organic<br>[adresa], [mesto]<br>Tel: 062 755 336<br>Reg. br. [broj]</div>
+  </div>
+  <div class="info" style="font-size:calc(var(--u)*3.5)"><b>Organski proizvod</b> · Zemlja porekla: Srbija<br>Čuvati na suvom i tamnom mestu, na sobnoj temperaturi.</div>
+ </div></div>`;
+}else{
+ // bagrem grancica
+ let s=`<svg class="spr" viewBox="0 0 100 ${(H/W*50).toFixed(1)}" preserveAspectRatio="xMidYMin meet"><g fill="none" stroke-linecap="round">`;
+ function sprig(x,y,len,ang,flip){
+  let o='';const a=ang*Math.PI/180;
+  const ex=x+Math.cos(a)*len, ey=y+Math.sin(a)*len;
+  o+=`<path d="M${x} ${y} Q ${(x+ex)/2} ${(y+ey)/2-flip*6} ${ex} ${ey}" stroke="#6a8a1f" stroke-width="0.7"/>`;
+  for(let i=1;i<=7;i++){
+   const t=i/8, px=x+(ex-x)*t, py=y+(ey-y)*t-flip*6*Math.sin(Math.PI*t);
+   for(const sd of[-1,1]){
+    const la=a+sd*1.2, lx=px+Math.cos(la)*3, ly=py+Math.sin(la)*3;
+    o+=`<ellipse cx="${(px+lx)/2}" cy="${(py+ly)/2}" rx="1.7" ry="0.8" transform="rotate(${la*180/Math.PI} ${(px+lx)/2} ${(py+ly)/2})" fill="${i%2?'#7fa02a':'#6a8a1f'}"/>`;
+   }
+  }
+  return o;
+ }
+ function raceme(x,y,n,sc){
+  let o=`<path d="M${x} ${y} q 0.6 ${n*1.4} -0.4 ${n*2.8}" stroke="#6a8a1f" stroke-width="0.35"/>`;
+  for(let i=0;i<n;i++){
+   const py=y+i*2.7+0.8, side=i%2?1:-1, px=x+side*1.5;
+   o+=`<path d="M${x} ${py-0.4} L${px} ${py+0.6}" stroke="#6a8a1f" stroke-width="0.2"/>`;
+   o+=`<ellipse cx="${px}" cy="${py+1.5}" rx="1.1" ry="1.6" fill="#fffdf4" stroke="#e4d9a8" stroke-width="0.2"/>`;
+   o+=`<ellipse cx="${px}" cy="${py+2}" rx="0.45" ry="0.5" fill="#f3e7b0"/>`;
+  }
+  return o;
+ }
+ s+=sprig(-2,5,60,10,1)+sprig(102,3,58,170,1)+sprig(38,-2,30,70,-1);
+ for(const [x,y,n] of [[6,8,9],[14,9,11],[22,11,8],[31,13,10],[40,10,6],[60,10,7],[68,13,10],[77,11,8],[86,9,11],[94,8,9],[50,8,5]]) s+=raceme(x,y,n,1);
+ s+='</g></svg>';
+ html=`<div class="page C">${s}<div class="safe" style="padding-top:calc(var(--u)*${tall?10:6})">
+  ${logo}
+  <div class="title">Bagremov<small>organski med od cvetova bagrema</small></div>
+  <div class="panel">
+   <div class="neto" style="margin-bottom:.2em">Neto: ${dims.neto}</div>
+   <div class="rule" style="margin:0 auto .5em"><i></i><span class="hex"></span><i></i></div>
+   ${infoBlock}
+  </div></div></div>`;
+}
+document.getElementById('root').innerHTML=html;
+</script></body></html>
