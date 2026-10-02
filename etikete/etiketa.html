@@ -52,7 +52,7 @@ html,body{width:var(--W);height:var(--H);overflow:hidden}
 .F .spr{height:auto}
 .F .bar,.K .bar{position:absolute;left:0;right:0;bottom:0;height:calc(var(--bleed) + var(--u)*3);background:var(--gold)}
 .F .safe{justify-content:space-around}
-.F .title{font-weight:400;font-size:calc(var(--u)*14);letter-spacing:.04em;text-transform:uppercase}
+.F .title{font-weight:400;font-size:calc(var(--u)*15.5);letter-spacing:.04em;text-transform:uppercase}
 .F .title em{display:block;font-style:normal;font-weight:900;color:var(--gold);font-size:.52em;letter-spacing:.4em;margin-top:.3em;padding-left:.4em}
 .F .neto{font-weight:400;font-size:calc(var(--u)*5.2);letter-spacing:.08em}
 /* ---- K: zadnja ---- */
@@ -67,6 +67,7 @@ html,body{width:var(--W);height:var(--H);overflow:hidden}
 <body>
 <div id="root"></div>
 <script>
+let _sd=5;const rnd=()=>{_sd=(_sd*16807)%2147483647;return (_sd-1)/2147483646};
 const q=new URLSearchParams(location.search);
 const style=q.get('style')||'A', size=q.get('size')||'1kg';
 const dims={ '1kg':{w:86,h:152.8,neto:'1000 g',lbl:'1 kg'}, '500ml':{w:85,h:116,neto:'700 g',lbl:'500 ml'} }[size];
@@ -75,7 +76,7 @@ const r=document.documentElement.style;
 r.setProperty('--W',W+'mm');r.setProperty('--H',H+'mm');r.setProperty('--bleed',bleed+'mm');
 const tall = size==='1kg';
 r.setProperty('--u',(dims.w/100*(tall?1:0.97))+'mm');
-const logoSize = style==='B' ? (tall?'33':'28') : (tall?'42':'34');
+const logoSize = style==='B' ? (tall?'33':'28') : style==='front' ? (tall?'46':'44') : (tall?'42':'34');
 
 const infoBlock = `
 <div class="info">
@@ -137,7 +138,13 @@ if(style==='A'){
  s+=sprig(-2,5,60,10,1)+sprig(102,3,58,170,1)+sprig(38,-2,30,70,-1);
  for(const [x,y,n] of [[6,8,9],[14,9,11],[22,11,8],[31,13,10],[40,10,6],[60,10,7],[68,13,10],[77,11,8],[86,9,11],[94,8,9],[50,8,5]]) s+=raceme(x,y,short?Math.min(n,5):n,1);
  s+='</g></svg>';
- if(short){ html=`<div class="page F"><div class="bar"></div><div class="safe" style="top:calc(var(--bleed) + var(--u)*2);bottom:calc(var(--bleed) + var(--u)*5)">
+ if(short){ // ukras u coskovima: grane bagrema gore, sace dole (jedva primetno)
+ let hx='';{const R=7.5,hxp=(cx,cy)=>{let p='';for(let k=0;k<6;k++){const a=Math.PI/3*k+Math.PI/6;p+=(cx+R*Math.cos(a)).toFixed(1)+','+(cy+R*Math.sin(a)).toFixed(1)+' ';}return `<polygon points="${p}" fill="#B8851A" fill-opacity="${(0.05+rnd()*0.07).toFixed(2)}" stroke="#B8851A" stroke-opacity=".38" stroke-width=".35"/>`;};
+  const vb=H/W*100, cells=[[0,0],[1,0],[2,0],[0.5,1],[1.5,1],[1,2],[0,2]];
+  for(const side of[0,1])for(const [i,j] of cells){const cxp=i*R*1.75+3, cyp=vb-j*R*1.52-1; hx+=hxp(side?100-cxp:cxp,cyp);}
+  hx=`<svg style="position:absolute;left:0;top:0;width:100%;height:100%" viewBox="0 0 100 ${vb.toFixed(2)}" preserveAspectRatio="none">${hx}</svg>`;}
+ const mk='linear-gradient(90deg,#000 0,#000 22%,transparent 36%,transparent 64%,#000 78%,#000 100%)';
+ html=`<div class="page F"><div class="deco" style="position:absolute;inset:0;opacity:.28;-webkit-mask-image:${mk};mask-image:${mk}">${s}</div><div style="position:absolute;inset:0;mask-image:linear-gradient(0deg,#000 0,#000 28%,transparent 50%);-webkit-mask-image:linear-gradient(0deg,#000 0,#000 28%,transparent 50%)">${hx}</div><div class="bar"></div><div class="safe" style="top:calc(var(--bleed) + var(--u)*2);bottom:calc(var(--bleed) + var(--u)*5)">
   ${logo}
   <div class="title">Bagremov<em>med</em></div>
   <div class="neto">${dims.neto}</div>
