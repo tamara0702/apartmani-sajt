@@ -46,6 +46,23 @@ html,body{width:var(--W);height:var(--H);overflow:hidden}
 .C .cert{color:#6a4a0c}
 .C .hex{background:#6a8a1f}
 .C .rule i{background:#6a8a1f}
+
+/* ---- F: prednja (B + malo C) ---- */
+.F{background:#FFFDF6}
+.F .spr{height:auto}
+.F .bar,.K .bar{position:absolute;left:0;right:0;bottom:0;height:calc(var(--bleed) + var(--u)*3);background:var(--gold)}
+.F .safe{justify-content:space-around}
+.F .title{font-weight:400;font-size:calc(var(--u)*14);letter-spacing:.04em;text-transform:uppercase}
+.F .title em{display:block;font-style:normal;font-weight:900;color:var(--gold);font-size:.52em;letter-spacing:.4em;margin-top:.3em;padding-left:.4em}
+.F .neto{font-weight:400;font-size:calc(var(--u)*5.2);letter-spacing:.08em}
+/* ---- K: zadnja ---- */
+.K{background:#fff}
+.K .mini{font-family:'Playfair Display',serif;font-size:calc(var(--u)*7.5);text-transform:uppercase;letter-spacing:.06em}
+.K .mini b{color:var(--gold)}
+.K .cols{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--u)*4);text-align:left;width:100%;font-size:calc(var(--u)*3.9);line-height:1.3;font-weight:600}
+.K .cols h6,.K .store h6{font-family:'Playfair Display',serif;font-size:.74em;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:.25em;font-weight:700}
+.K .store{font-size:calc(var(--u)*3.9);line-height:1.3;text-align:left;width:100%;font-weight:600}
+.K .rule{width:100%}
 </style></head>
 <body>
 <div id="root"></div>
@@ -90,7 +107,8 @@ if(style==='A'){
   </div>
   <div class="info" style="font-size:calc(var(--u)*3.5)"><b>Organski proizvod</b> · Zemlja porekla: Srbija<br>Čuvati na suvom i tamnom mestu, na sobnoj temperaturi.</div>
  </div></div>`;
-}else{
+}else if(style==='C'||style==='front'){
+ const short=style==='front';
  // bagrem grancica
  let s=`<svg class="spr" viewBox="0 0 100 ${(H/W*50).toFixed(1)}" preserveAspectRatio="xMidYMin meet"><g fill="none" stroke-linecap="round">`;
  function sprig(x,y,len,ang,flip){
@@ -117,8 +135,13 @@ if(style==='A'){
   return o;
  }
  s+=sprig(-2,5,60,10,1)+sprig(102,3,58,170,1)+sprig(38,-2,30,70,-1);
- for(const [x,y,n] of [[6,8,9],[14,9,11],[22,11,8],[31,13,10],[40,10,6],[60,10,7],[68,13,10],[77,11,8],[86,9,11],[94,8,9],[50,8,5]]) s+=raceme(x,y,n,1);
+ for(const [x,y,n] of [[6,8,9],[14,9,11],[22,11,8],[31,13,10],[40,10,6],[60,10,7],[68,13,10],[77,11,8],[86,9,11],[94,8,9],[50,8,5]]) s+=raceme(x,y,short?Math.min(n,5):n,1);
  s+='</g></svg>';
+ if(short){ html=`<div class="page F">${s}<div class="bar"></div><div class="safe" style="top:calc(var(--bleed) + var(--u)*${tall?26:24});bottom:calc(var(--bleed) + var(--u)*9)">
+  ${logo}
+  <div class="title">Bagremov<em>med</em></div>
+  <div class="neto">${dims.neto}</div>
+ </div></div>`; } else
  html=`<div class="page C">${s}<div class="safe" style="padding-top:calc(var(--u)*${tall?10:6})">
   ${logo}
   <div class="title">Bagremov<small>organski med od cvetova bagrema</small></div>
@@ -127,6 +150,26 @@ if(style==='A'){
    <div class="rule" style="margin:0 auto .5em"><i></i><span class="hex"></span><i></i></div>
    ${infoBlock}
   </div></div></div>`;
+}
+if(style==='back'){
+ html=`<div class="page K"><div class="bar"></div><div class="safe" style="bottom:calc(var(--bleed) + var(--u)*9)">
+  <div class="mini">Bagremov <b>med</b></div>
+  <div class="cert">organski proizvod</div>
+  <div class="rule"><i></i><span class="hex"></span><i></i></div>
+  <div class="cols">
+   <div><h6>Proizvođač</h6>Dedin med organic<br>[adresa], [mesto]<br>Srbija<br>Tel: 062 755 336<br>IG: @dedin.med.organic</div>
+   <div><h6>Rok i serija</h6>Najbolje upotrebiti do:<br><span class="line" style="width:92%"></span><br>LOT:<br><span class="line" style="width:92%"></span></div>
+  </div>
+  <div class="cols c1">
+   <div><h6>Neto masa</h6>${dims.neto}</div>
+   <div><h6>Zemlja porekla</h6>Srbija</div>
+  </div>
+  <div class="cols c1">
+   <div><h6>Registracija</h6>Reg. br. [broj registracije]</div>
+   <div><h6>Organska kontrola</h6>[kontrolno telo, šifra]</div>
+  </div>
+  <div class="store"><h6>Čuvanje</h6>Čuvati na suvom i tamnom mestu, na sobnoj temperaturi, u dobro zatvorenoj tegli.</div>
+ </div></div>`;
 }
 document.getElementById('root').innerHTML=html;
 </script></body></html>
