@@ -1,4 +1,4 @@
-import math, os, subprocess, sys
+import math, os, re, subprocess, sys
 from podaci import *
 
 INK="#3e2412"; GOLD="#e6a41c"; DEEP="#c97d0a"; CREAM="#fbf1d6"; SOFT="#7a5a10"
@@ -10,22 +10,13 @@ def hexp(cx,cy,r,rot=30):
     return " ".join(f"{cx+r*math.cos(math.radians(60*i+rot)):.2f},{cy+r*math.sin(math.radians(60*i+rot)):.2f}" for i in range(6))
 
 def logo(cx,cy,s):
-    """PRIVREMENI logo: pčela u kućici-šestouglu. Zameniti pravim logom (vidi README)."""
-    h=hexp(0,0,50,rot=90)
-    return f'''<g transform="translate({cx},{cy}) scale({s})">
-<polygon points="{h}" fill="{CREAM}" stroke="{GOLD}" stroke-width="5" stroke-linejoin="round"/>
-<polygon points="{hexp(0,0,43,90)}" fill="none" stroke="{DEEP}" stroke-width="1.5" stroke-linejoin="round"/>
-<g transform="translate(2,4) rotate(-20) scale(.40)">
-<ellipse cx="-14" cy="-34" rx="26" ry="15" fill="#fff" stroke="{INK}" stroke-width="3" transform="rotate(-25 -14 -34)"/>
-<ellipse cx="18" cy="-36" rx="26" ry="15" fill="#fff" stroke="{INK}" stroke-width="3" transform="rotate(25 18 -36)"/>
-<clipPath id="bc"><ellipse rx="42" ry="30"/></clipPath>
-<ellipse rx="42" ry="30" fill="{GOLD}"/>
-<g clip-path="url(#bc)" fill="{INK}"><rect x="-18" y="-32" width="11" height="64"/><rect x="2" y="-32" width="11" height="64"/><rect x="21" y="-32" width="11" height="64"/></g>
-<ellipse rx="42" ry="30" fill="none" stroke="{INK}" stroke-width="4"/>
-<circle cx="-50" cy="-2" r="17" fill="{INK}"/><circle cx="-56" cy="-7" r="3.5" fill="{CREAM}"/>
-<path d="M-58 5 Q-52 11 -45 5" stroke="{CREAM}" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-<path d="M-58 -17 Q-66 -34 -76 -32 M-50 -19 Q-52 -38 -62 -42" stroke="{INK}" stroke-width="3" fill="none" stroke-linecap="round"/>
-<path d="M42 0 L58 0" stroke="{INK}" stroke-width="5" stroke-linecap="round"/></g></g>'''
+    """Pravi logo iz ../logo.svg (krug, viewBox 400x400). Bez natpisa ORGANIC dok ORGANSKI nije True."""
+    src=open(os.path.join(HERE,"..","logo.svg"),encoding="utf-8").read()
+    inner=src[src.index("<defs>"):src.rindex("</svg>")]
+    if not ORGANSKI:
+        inner=re.sub(r'<text[^>]*>\s*<textPath href="#bota"[^>]*>ORGANIC</textPath></text>\n?','',inner)
+        assert "ORGANIC" not in inner
+    return f'<g transform="translate({cx},{cy}) scale({s}) translate(-200,-200)">{inner}</g>'
 
 def t(x,y,txt,size,fill=INK,weight="400",fam=SERIF,ls=0,anchor="middle",style=""):
     return f'<text x="{x:.2f}" y="{y:.2f}" font-family="{fam}" font-size="{size}" font-weight="{weight}" letter-spacing="{ls}" fill="{fill}" text-anchor="{anchor}" {style}>{txt}</text>'
@@ -47,11 +38,9 @@ def label(W,H,neto,preview):
             hs.append(f'<polygon points="{hexp(x,y,r*0.93)}"/>')
     s.append(f'<clipPath id="bandclip"><rect width="{TW}" height="{bandh}"/></clipPath><g clip-path="url(#bandclip)" fill="none" stroke="{GOLD}" stroke-width=".18" opacity=".16">{"".join(hs)}</g>')
     # logo + naziv brenda (sve unutar sigurne zone, iznad talasa)
-    R=band*0.30
-    cy=b+3+R+1.0
-    s.append(logo(cx,cy,R/50*0.98))
-    fb=band*0.082
-    s.append(t(cx,cy+R+fb*1.55,"PČELINJI DOM",fb,CREAM,"700",TITLE,ls=fb*0.14))
+    R=min(band*0.40,(band+b-3-4)/2)
+    cy=(b+3+bandh-4)/2
+    s.append(logo(cx,cy,R/196))
     wy=bandh
     wave_bot=wy+2.8
     s.append(f'<path d="M0 {wy} Q{TW*.25} {wy+4.2} {TW*.5} {wy} T{TW} {wy} L{TW} {wy+1.2} Q{TW*.75} {wy+5.4} {TW*.5} {wy+1.2} T0 {wy+1.2}Z" fill="{GOLD}"/>')

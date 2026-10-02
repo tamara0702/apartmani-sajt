@@ -9,9 +9,8 @@ Za štampu: `.pdf` (vektorski, tačne dimenzije) ili `.png` (300 dpi). `*-pregle
 ružičastu liniju sečenja i plavu sigurnu zonu (3 mm unutra) – nije za štampu.
 
 ## Pre štampe obavezno
-1. **Logo**: u repou nema loga „Pčelinji dom“ (postoji samo stari „Dedin med organic“), pa je
-   na etiketi privremeni crtež pčele u šestouglu. Zameniti funkcijom `logo()` u `build_etikete.py`.
-2. **Podaci** u `podaci.py`: adresa proizvođača (sada je mesto za upis), broj registracije (`REG_BROJ`).
+1. **Logo**: koristi se `../logo.svg` (Dedin med organic). Natpis „ORGANIC“ na logu se automatski izostavlja dok `ORGANSKI = False`.
+2. **Podaci** u `podaci.py`: naziv i adresa proizvođača (sada su mesta za upis), broj registracije (`REG_BROJ`).
 3. **Organski**: reč se ne štampa; `ORGANSKI = True` samo uz važeći sertifikat.
 4. Neto masa za teglu 500 ml je 700 g – proveriti vaganjem.
 5. Datum („Najbolje upotrebiti do“) i LOT su linije za štampač/pečat/ručni upis.
