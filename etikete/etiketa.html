@@ -139,12 +139,17 @@ if(style==='A'){
  for(const [x,y,n] of [[6,8,9],[14,9,11],[22,11,8],[31,13,10],[40,10,6],[60,10,7],[68,13,10],[77,11,8],[86,9,11],[94,8,9],[50,8,5]]) s+=raceme(x,y,short?Math.min(n,5):n,1);
  s+='</g></svg>';
  if(short){ // ukras u coskovima: grane bagrema gore, sace dole (jedva primetno)
- let hx='';{const R=7.5,hxp=(cx,cy)=>{let p='';for(let k=0;k<6;k++){const a=Math.PI/3*k+Math.PI/6;p+=(cx+R*Math.cos(a)).toFixed(1)+','+(cy+R*Math.sin(a)).toFixed(1)+' ';}return `<polygon points="${p}" fill="#B8851A" fill-opacity="${(0.05+rnd()*0.07).toFixed(2)}" stroke="#B8851A" stroke-opacity=".38" stroke-width=".35"/>`;};
-  const vb=H/W*100, cells=[[0,0],[1,0],[2,0],[0.5,1],[1.5,1],[1,2],[0,2]];
-  for(const side of[0,1])for(const [i,j] of cells){const cxp=i*R*1.75+3, cyp=vb-j*R*1.52-1; hx+=hxp(side?100-cxp:cxp,cyp);}
+ let hx='';{const R=3.2,dx=Math.sqrt(3)*R,dy=1.5*R,vb=H/W*100;
+  const hexp=(cx,cy)=>{let p='';for(let k=0;k<6;k++){const a=Math.PI/3*k+Math.PI/6;p+=(cx+R*Math.cos(a)).toFixed(2)+','+(cy+R*Math.sin(a)).toFixed(2)+' ';}return p;};
+  for(const side of[0,1])for(let j=0;j<9;j++)for(let i=0;i<10;i++){
+   const cxp=3+i*dx+(j%2?dx/2:0), cyp=vb-3-j*dy, d=Math.hypot(i*dx+(j%2?dx/2:0), j*dy);
+   if(d>30) continue;
+   const f=Math.max(0,1-d/30), px=side?100-cxp:cxp;
+   hx+=`<polygon points="${hexp(px,cyp)}" fill="#B8851A" fill-opacity="${(0.03+0.10*f*rnd()).toFixed(3)}" stroke="#B8851A" stroke-opacity="${(0.12+0.4*f).toFixed(2)}" stroke-width=".18"/>`;
+  }
   hx=`<svg style="position:absolute;left:0;top:0;width:100%;height:100%" viewBox="0 0 100 ${vb.toFixed(2)}" preserveAspectRatio="none">${hx}</svg>`;}
  const mk='linear-gradient(90deg,#000 0,#000 22%,transparent 36%,transparent 64%,#000 78%,#000 100%)';
- html=`<div class="page F"><div class="deco" style="position:absolute;inset:0;opacity:.28;-webkit-mask-image:${mk};mask-image:${mk}">${s}</div><div style="position:absolute;inset:0;mask-image:linear-gradient(0deg,#000 0,#000 28%,transparent 50%);-webkit-mask-image:linear-gradient(0deg,#000 0,#000 28%,transparent 50%)">${hx}</div><div class="bar"></div><div class="safe" style="top:calc(var(--bleed) + var(--u)*2);bottom:calc(var(--bleed) + var(--u)*5)">
+ html=`<div class="page F"><div class="deco" style="position:absolute;inset:0;opacity:.28;-webkit-mask-image:${mk};mask-image:${mk}">${s}</div><div style="position:absolute;inset:0">${hx}</div><div class="bar"></div><div class="safe" style="top:calc(var(--bleed) + var(--u)*2);bottom:calc(var(--bleed) + var(--u)*5)">
   ${logo}
   <div class="title">Bagremov<em>med</em></div>
   <div class="neto">${dims.neto}</div>
