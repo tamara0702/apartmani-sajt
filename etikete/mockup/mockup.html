@@ -1,0 +1,27 @@
+<!doctype html><body style="margin:0"><canvas id="c" width="1200" height="1600"></canvas>
+<script>
+const p=new URLSearchParams(location.search), size=p.get('size')||'500ml';
+const dims={'500ml':[85,116],'1kg':[86,152.8]}[size];
+const load=s=>new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.src=s});
+(async()=>{
+ const photo=await load('tegla.jpg'), lab=await load('../etiketa-'+size+'-front.png');
+ const c=document.getElementById('c'),x=c.getContext('2d'); x.drawImage(photo,0,0,1200,1600);
+ const cx=595, r=325, ppm=2*r/83.8;           // px po mm (precnik tegle ~ 84 mm)
+ const bleed=3*300/25.4, W=lab.width-2*bleed, H=lab.height-2*bleed;
+ const arc=dims[0]*ppm, h=dims[1]*ppm;
+ const top=parseFloat(p.get('top')||470);
+ for(let dx=-Math.floor(r*0.99);dx<r*0.99;dx++){
+  const t0=Math.asin(dx/r), t1=Math.asin((dx+1)/r);
+  const u0=(t0*r+arc/2)/arc, u1=(t1*r+arc/2)/arc;
+  if(u0<0||u1>1) continue;
+  x.drawImage(lab,bleed+u0*W,bleed,Math.max((u1-u0)*W,0.5),H,cx+dx,top,1,h);
+  const shade=(1-Math.cos(t0))*0.9;
+  x.fillStyle=`rgba(60,35,10,${Math.min(shade,0.55)})`; x.fillRect(cx+dx,top,1,h);
+ }
+ const g=x.createLinearGradient(cx+95,0,cx+175,0);
+ g.addColorStop(0,'rgba(255,255,255,0)');g.addColorStop(.5,'rgba(255,255,255,.16)');g.addColorStop(1,'rgba(255,255,255,0)');
+ x.fillStyle=g;x.fillRect(cx+95,top,80,h);
+ // tanka senka ispod/iznad
+ window.done=true;
+})();
+</script></body>
