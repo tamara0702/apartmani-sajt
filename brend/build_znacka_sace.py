@@ -6,8 +6,8 @@ from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
 
 HERE=os.path.dirname(os.path.abspath(__file__))
-SANS=TTFont("/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf")
-SCRIPT=TTFont(os.environ.get("SCRIPT_FONT","/tmp/claude-0/fx/package/files/dancing-script-latin-700-normal.woff"))
+SANS=TTFont("/usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf")   # serif kao na logou Dedin med
+SCRIPT=TTFont("/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf")
 
 def glyphs(font,text,size,ls=0):
     """-> lista (glyphname, x_pomeraj, sirina) i ukupna sirina; ls = razmak izmedju slova"""
@@ -74,8 +74,8 @@ def build(color):
     R_OUT,R_IN,RC=192,162,34
     R_TXT_TOP,R_TXT_BOT=171,182      # osnovne linije teksta (gore unutra, dole spolja)
     parts=[]
-    parts.append(f'<path d="{poly_d(hexloop(R_OUT,RC))}" fill="none" stroke="{color}" stroke-width="3.2" stroke-linejoin="round"/>')
-    parts.append(f'<path d="{poly_d(hexloop(R_IN,RC))}" fill="none" stroke="{color}" stroke-width="1.6" stroke-linejoin="round"/>')
+    parts.append(f'<path d="{poly_d(hexloop(R_OUT,RC))}" fill="none" stroke="{color}" stroke-width="1.5" stroke-linejoin="round"/>')
+    parts.append(f'<path d="{poly_d(hexloop(R_IN,RC))}" fill="none" stroke="{color}" stroke-width="1" stroke-linejoin="round"/>')
     # tekst po putanji: prozor oko sredine gornje/donje ivice (indeks 5n, odnosno 2n u zatvorenoj petlji)
     def window(loop,mid,half):
         N=len(loop); fw=[loop[mid]]; bw=[loop[mid]]; acc=0; i=mid
@@ -88,21 +88,21 @@ def build(color):
     loop=hexloop(R_TXT_TOP,RC); n=len(loop)//6
     loop=mid_insert(loop,5*n)
     top=window(loop,5*n,170)
-    d_top,_=text_path(SANS,"PROIZVEDENO U SRCU SRBIJE",13,1.6,0,0,"path",top,arclen(top)/2)
+    d_top,_=text_path(SANS,"PROIZVEDENO U SRCU SRBIJE",14,2.2,0,0,"path",top,arclen(top)/2)
     parts.append(f'<path d="{d_top}" fill="{color}"/>')
     loop=mid_insert(hexloop(R_TXT_BOT,RC),2*n)
     bot=list(reversed(window(loop,2*n,150)))   # s leva na desno
-    d_bot,_=text_path(SANS,"DOMAĆEG POREKLA",13,3.0,0,0,"path",bot,arclen(bot)/2)
+    d_bot,_=text_path(SANS,"DOMAĆEG POREKLA",14,3.6,0,0,"path",bot,arclen(bot)/2)
     parts.append(f'<path d="{d_bot}" fill="{color}"/>')
     # sredina: Srpski (pismo) + PROIZVOD
-    d_sr,w=text_path(SCRIPT,"Srpski",120,0,200,222,"flat")
+    d_sr,w=text_path(SCRIPT,"Srpski",100,1,200,222,"flat")
     sc=min(1.0,250/w)
     parts.append(f'<g transform="translate(200 0) scale({sc}) translate(-200 0)"><path d="{d_sr}" fill="{color}"/></g>')
-    d_pv,wp=text_path(SANS,"PROIZVOD",19,6,200,268,"flat")
+    d_pv,wp=text_path(SANS,"PROIZVOD",20,7,200,268,"flat")
     parts.append(f'<path d="{d_pv}" fill="{color}"/>')
-    parts.append(f'<line x1="{200-wp/2-26}" x2="{200-wp/2-8}" y1="261" y2="261" stroke="{color}" stroke-width="1.6"/><line x1="{200+wp/2+8}" x2="{200+wp/2+26}" y1="261" y2="261" stroke="{color}" stroke-width="1.6"/>')
+    parts.append(f'<line x1="{200-wp/2-26}" x2="{200-wp/2-8}" y1="261" y2="261" stroke="{color}" stroke-width="1"/><line x1="{200+wp/2+8}" x2="{200+wp/2+26}" y1="261" y2="261" stroke="{color}" stroke-width="1"/>')
     return f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="800" height="800">\n'+"\n".join(parts)+"\n</svg>\n"
 
-for name,col in (("tamna","#3e2412"),("svetla","#fbf1d6")):
+for name,col in (("zlatna","#c49a2c"),):
     open(os.path.join(HERE,f"srpski-proizvod-sace-{name}.svg"),"w",encoding="utf-8").write(build(col))
 print("ok")
