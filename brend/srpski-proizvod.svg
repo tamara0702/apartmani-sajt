@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="800" height="800">
+<defs>
+<path id="sp-top" d="M 52 200 A 148 148 0 0 1 348 200"/>
+<path id="sp-bot" d="M 40 200 A 160 160 0 0 0 360 200"/>
+</defs>
+<circle cx="200" cy="200" r="196" fill="#3e2412"/>
+<circle cx="200" cy="200" r="186" fill="none" stroke="#e6a41c" stroke-width="3"/>
+<circle cx="200" cy="200" r="118" fill="#e6a41c"/>
+<circle cx="200" cy="200" r="112" fill="#fbf1d6"/>
+<text font-family="'DejaVu Serif',Georgia,serif" font-weight="700" font-size="21.5" letter-spacing="1.6" fill="#fbf1d6" text-anchor="middle"><textPath href="#sp-top" startOffset="50%">PROIZVEDENO U SRCU SRBIJE</textPath></text>
+<text font-family="'DejaVu Serif',Georgia,serif" font-weight="700" font-size="27" letter-spacing="4" fill="#e6a41c" text-anchor="middle"><textPath href="#sp-bot" startOffset="50%" side="left">DOMAĆEG POREKLA</textPath></text>
+<g fill="#e6a41c"><circle cx="34" cy="214" r="5"/><circle cx="366" cy="214" r="5"/></g>
+<polygon points="200,128 262,164 262,236 200,272 138,236 138,164" fill="#e6a41c" fill-opacity=".25" stroke="#c97d0a" stroke-width="3"/>
+<text x="200" y="196" font-family="'DejaVu Serif',Georgia,serif" font-weight="700" font-size="35" letter-spacing="1.5" fill="#3e2412" text-anchor="middle">SRPSKI</text>
+<line x1="156" x2="244" y1="210" y2="210" stroke="#c97d0a" stroke-width="2.5"/>
+<text x="200" y="244" font-family="'DejaVu Serif',Georgia,serif" font-weight="700" font-size="28" letter-spacing="1" fill="#3e2412" text-anchor="middle">PROIZVOD</text>
+</svg>

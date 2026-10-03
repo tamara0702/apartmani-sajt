@@ -18,6 +18,12 @@ def logo(cx,cy,s):
         assert "ORGANIC" not in inner
     return f'<g transform="translate({cx},{cy}) scale({s}) translate(-200,-200)">{inner}</g>'
 
+def znacka(cx,cy,s):
+    """Značka 'Srpski proizvod' iz ../srpski-proizvod.svg (krug, viewBox 400x400)."""
+    src=open(os.path.join(HERE,"..","srpski-proizvod.svg"),encoding="utf-8").read()
+    inner=src[src.index("<defs>"):src.rindex("</svg>")]
+    return f'<g transform="translate({cx},{cy}) scale({s}) translate(-200,-200)">{inner}</g>'
+
 def t(x,y,txt,size,fill=INK,weight="400",fam=SERIF,ls=0,anchor="middle",style=""):
     return f'<text x="{x:.2f}" y="{y:.2f}" font-family="{fam}" font-size="{size}" font-weight="{weight}" letter-spacing="{ls}" fill="{fill}" text-anchor="{anchor}" {style}>{txt}</text>'
 
@@ -40,7 +46,10 @@ def label(W,H,neto,preview):
     # logo + naziv brenda (sve unutar sigurne zone, iznad talasa)
     R=min(band*0.40,(band+b-3-4)/2)
     cy=(b+3+bandh-4)/2
-    s.append(logo(cx,cy,R/196))
+    zr=R*0.92; gap=5                          # logo i značka jedan pored drugog, centrirani
+    x0=cx-(2*R+gap+2*zr)/2
+    s.append(logo(x0+R,cy,R/196))
+    s.append(znacka(x0+2*R+gap+zr,cy,zr/196))
     wy=bandh
     wave_bot=wy+2.8
     s.append(f'<path d="M0 {wy} Q{TW*.25} {wy+4.2} {TW*.5} {wy} T{TW} {wy} L{TW} {wy+1.2} Q{TW*.75} {wy+5.4} {TW*.5} {wy+1.2} T0 {wy+1.2}Z" fill="{GOLD}"/>')
